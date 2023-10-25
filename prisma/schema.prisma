@@ -8,7 +8,8 @@ datasource db {
 }
 
 model Link {
-  id   Int    @id @default(autoincrement())
-  path String @unique
-  url  String
+  id    Int    @id @default(autoincrement())
+  path  String @unique
+  url   String
+  timer Int
 }

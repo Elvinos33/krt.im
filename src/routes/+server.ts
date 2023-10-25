@@ -1,7 +1,6 @@
 import prisma from "$lib/prisma";
-import { json } from "@sveltejs/kit";
 
-export async function GET(response: URL) {
+export async function GET(response: any) {
   const url = new URL(response.url.href)
   const params = new URLSearchParams(url.search)
   const path: any = params.get("path")
@@ -28,4 +27,8 @@ export async function GET(response: URL) {
     })
   }
 
+}
+
+export async function POST(request: any) {
+  console.log(request.json())
 }
