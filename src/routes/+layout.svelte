@@ -1,0 +1,15 @@
+<script lang="ts">
+	import '../app.postcss';
+	import { AppShell, LightSwitch } from '@skeletonlabs/skeleton';
+
+	// Floating UI for Popups
+	import { computePosition, autoUpdate, flip, shift, offset, arrow } from '@floating-ui/dom';
+	import { storePopup } from '@skeletonlabs/skeleton';
+	storePopup.set({ computePosition, autoUpdate, flip, shift, offset, arrow });
+</script>
+
+<!-- App Shell -->
+<AppShell>
+  <LightSwitch class="m-5" />
+	<slot />
+</AppShell>
