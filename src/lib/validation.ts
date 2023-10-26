@@ -18,21 +18,17 @@
     }
   }
   
-  export async function onSubmit(input: string, currentStage: number) {
-    if (currentStage === 0) {
-      if (isValidURL(input)) {
-        currentStage++
-      } else {
-        console.log("URL is not valid!")
+  export async function sendRequest(requestData: object) {
+    console.log(requestData)
+    const response = await fetch('/', {
+      method: 'POST',
+      body: JSON.stringify({requestData}),
+      headers: {
+        'Content-Type': 'application/json'
       }
-    } else if (currentStage === 1) {
-      if (await doesPathExist(input)) {
-        console.log("Path already exists")
-      } else {
-        currentStage++
-      }
-    } else if (currentStage === 2) {
-    }
-    console.log(input)
+    })
+    return response
   }
+
+
 

@@ -13,13 +13,32 @@ export async function GET(response: any) {
   })
   
   if (link) {
-    return new Response({link}, {
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      status: 302,
-    })
+    if (link.expires < Date.now()) {
+      
+      await prisma.link.delete({
+        where: {
+          id: link.id
+        }
+      })
+
+      return new Response("Link can be created", {
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        status: 200,
+      })
+
+    } else {
+
+      return new Response("Link already exists!", {
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        status: 302,
+      })
+    }
   } else {
+    
     return new Response("Link can be created", {
       headers: {
         'Content-Type': 'application/json'
@@ -30,14 +49,14 @@ export async function GET(response: any) {
 
 }
 
-export async function POST({request, cookies}) {
+export async function POST({request}) {
   const { requestData } = await request.json()
   
-  const link = await prisma.link.create({
+  await prisma.link.create({
     data: {
       path: requestData.path,
       url: requestData.url,
-      timer: requestData.timer
+      expires: new Date(Date.now() + requestData.timer)
     }
   })
 

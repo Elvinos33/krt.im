@@ -2,75 +2,104 @@
   import UserInput from "../components/userInput.svelte";
   import type { InputProps } from "../components/userInput.svelte";
   import { fly } from "svelte/transition";
-  import { isValidURL, doesPathExist } from "$lib/validation"
+  import { isValidURL, doesPathExist, sendRequest } from "$lib/validation"
+  import Complete from "../components/complete.svelte";
+  import { getToastStore } from '@skeletonlabs/skeleton'
+  import type { ToastSettings } from "@skeletonlabs/skeleton";
 
+  
+  const toastStore = getToastStore();
   let currentStage = 0;
+  type requestType = {
+    url: string,
+    path: string,
+    timer: number
+  }
+
   const allStages: Array<InputProps> = [
     {
       title: "Where would you like to redirect to?",
       type: "url",
       placeholder: "Please enter a URL...",
       icon: "mdi:arrow-right",
+      isNumber: false
     },
     {
-      title: "Where would you like to redirect from?",
+      title: "What is the shortened name?",
       type: "url",
-      placeholder: "krt.im/...",
+      placeholder: "Path...",
       icon: "mdi:arrow-right",
+      isNumber: false
     },
     {
       title: "How long would you like the link to last?",
       type: "url",
       placeholder: "krt.im/...",
       icon: "icons8:finish-flag",
+      isNumber: true,
     },
   ]
 
   $: UserInputProps = allStages[currentStage]
 
-  let requestData:object = {
+  let requestData:requestType = {
     url: "",
     path: "",
     timer: 0
     
   }
 
-  async function sendRequest(requestData: object) {
-    console.log(requestData)
-    const response = await fetch('/', {
-      method: 'POST',
-      body: JSON.stringify({requestData}),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-    return response
-  }
+  function toastError(message: string) {
+    const toast: ToastSettings = {
+      message: message,
+      background: 'variant-filled-error'
+    }
+    toastStore.trigger(toast)
+  } 
 
- async function onSubmit(input: string) {
+
+ async function onSubmit(input: string, metric: string) {
     if (currentStage === 0) {
       
       if (isValidURL(input)) {
+        if (!input.includes("https://www.")) {
+          input = `https://www.${input}`
+        }
         currentStage++
         requestData.url = input
       } else {
-        console.log("URL is not valid!")
+        toastError("Invalid URL! Please try again.")
       }
 
     } else if (currentStage === 1) {
       
       if (await doesPathExist(input)) {
-        console.log("Path already exists")
+        toastError("This path is already exists. Please try another path.")
       } else {
         currentStage++
         requestData.path = input
       }
 
     } else if (currentStage === 2) {
-        requestData.timer = Number(input)
-        console.log(requestData)
-        console.log(await sendRequest(requestData))
-    }
+          requestData.timer = Number(input)
+        if (isNaN(requestData.timer)) {
+          toastError("Invalid number! Please try again.")
+        } else {
+          console.log(metric)
+          if (metric === 's') {
+            requestData.timer = requestData.timer * 1000
+          } else if (metric === 'h') {
+            requestData.timer = requestData.timer * 3600000
+          } else if (metric === 'd') {
+            requestData.timer = requestData.timer * 86400000
+          } else if (metric === 'yr') {
+            requestData.timer = requestData.timer * 31536000000
+            console.log(requestData.timer)
+          }
+          await sendRequest(requestData)
+          currentStage++
+        }
+      }
     console.log(input)
   }
 
@@ -80,6 +109,11 @@
 <div class="w-full h-full flex flex-col gap-10 items-center justify-center">
   {#if UserInputProps == allStages[0]}
     <h1 out:fly={{x: 300}} class="h1 mb-56">Welcome to krt.im</h1>
+  {/if}
+  {#if currentStage === 3}
+    <div in:fly={{delay: 400, x: -300}} out:fly={{x: 300}} class="w-full absolute">
+      <Complete path={requestData.path} />
+    </div>
   {/if}
   {#key UserInputProps}
     <div in:fly={{delay: 200, x:-300}} out:fly={{x: 300}} class="w-full absolute">
