@@ -19,7 +19,6 @@
   }
   
   export async function sendRequest(requestData: object) {
-    console.log(requestData)
     const response = await fetch('/', {
       method: 'POST',
       body: JSON.stringify({requestData}),

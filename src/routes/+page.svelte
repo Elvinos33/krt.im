@@ -94,19 +94,17 @@
             requestData.timer = requestData.timer * 86400000
           } else if (metric === 'yr') {
             requestData.timer = requestData.timer * 31536000000
-            console.log(requestData.timer)
           }
           await sendRequest(requestData)
           currentStage++
         }
       }
-    console.log(input)
   }
 
 </script>
 
 
-<div class="w-full h-full flex flex-col gap-10 items-center justify-center">
+<div class="overflow-hidden w-screen h-screen flex flex-col gap-10 items-center justify-center">
   {#if UserInputProps == allStages[0]}
     <h1 out:fly={{x: 300}} class="h1 mb-56">Welcome to krt.im</h1>
   {/if}
