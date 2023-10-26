@@ -1,4 +1,5 @@
 import prisma from "$lib/prisma";
+import { json } from "@sveltejs/kit"
 
 export async function GET(response: any) {
   const url = new URL(response.url.href)
@@ -12,7 +13,7 @@ export async function GET(response: any) {
   })
   
   if (link) {
-    return new Response("Link already exists", {
+    return new Response({link}, {
       headers: {
         'Content-Type': 'application/json'
       },
@@ -29,6 +30,17 @@ export async function GET(response: any) {
 
 }
 
-export async function POST(request: any) {
-  console.log(request.json())
+export async function POST({request, cookies}) {
+  const { requestData } = await request.json()
+  
+  const link = await prisma.link.create({
+    data: {
+      path: requestData.path,
+      url: requestData.url,
+      timer: requestData.timer
+    }
+  })
+
+  console.log({requestData})
+  return json({ requestData })
 }

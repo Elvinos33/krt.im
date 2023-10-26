@@ -29,10 +29,22 @@
   $: UserInputProps = allStages[currentStage]
 
   let requestData:object = {
-    "url": "",
-    "path": "",
-    "timer": 0
+    url: "",
+    path: "",
+    timer: 0
     
+  }
+
+  async function sendRequest(requestData: object) {
+    console.log(requestData)
+    const response = await fetch('/', {
+      method: 'POST',
+      body: JSON.stringify({requestData}),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    return response
   }
 
  async function onSubmit(input: string) {
@@ -55,6 +67,9 @@
       }
 
     } else if (currentStage === 2) {
+        requestData.timer = Number(input)
+        console.log(requestData)
+        console.log(await sendRequest(requestData))
     }
     console.log(input)
   }
