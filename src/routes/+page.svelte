@@ -62,7 +62,7 @@
     if (currentStage === 0) {
       
       if (isValidURL(input)) {
-        if (!input.includes("https://www.")) {
+        if (!input.includes("https://")) {
           input = `https://www.${input}`
         }
         currentStage++
