@@ -73,10 +73,11 @@
       }
 
     } else if (currentStage === 1) {
-      
+      isDisabled = true
       if (await doesPathExist(input)) {
         toastError("This path is already exists. Please try another path.")
-      } else {
+        } else {
+        isDisabled = false
         currentStage++
         requestData.path = input
       }
@@ -85,7 +86,8 @@
           requestData.timer = Number(input)
         if (isNaN(requestData.timer)) {
           toastError("Invalid number! Please try again.")
-        } else {
+          } else {
+          isDisabled = true
           console.log(metric)
           if (metric === 's') {
             requestData.timer = requestData.timer * 1000
@@ -97,6 +99,7 @@
             requestData.timer = requestData.timer * 31536000000
           }
           await sendRequest(requestData)
+          isDisabled = false
           currentStage++
         }
       }
