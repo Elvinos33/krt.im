@@ -3,7 +3,7 @@
 
   export let path: string;
 
-  const finalURL = `krtim.elvinos.tech/${path}`
+  const finalURL = `krt.im/${path}`
 </script>
 
 <div class="w-full flex flex-col items-center gap-8">
