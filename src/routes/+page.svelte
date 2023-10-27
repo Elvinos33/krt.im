@@ -9,7 +9,8 @@
 
   
   const toastStore = getToastStore();
-  let currentStage = 0;
+  let currentStage: number = 0;
+  let isDisabled: boolean = false;
   type requestType = {
     url: string,
     path: string,
@@ -63,7 +64,7 @@
       
       if (isValidURL(input)) {
         if (!input.includes("https://")) {
-          input = `https://www.${input}`
+          input = `https://${input}`
         }
         currentStage++
         requestData.url = input
@@ -104,7 +105,7 @@
 </script>
 
 
-<div class="overflow-hidden w-screen h-screen flex flex-col gap-10 items-center justify-center">
+<div class="absolute inset-0 overflow-hidden flex flex-col gap-10 items-center justify-center">
   {#if UserInputProps == allStages[0]}
     <h1 out:fly={{x: 300}} class="h1 mb-56">Welcome to krt.im</h1>
   {/if}
@@ -115,7 +116,7 @@
   {/if}
   {#key UserInputProps}
     <div in:fly={{delay: 200, x:-300}} out:fly={{x: 300}} class="w-full absolute">
-      <UserInput inputProps={UserInputProps} onSubmit={onSubmit}/>
+      <UserInput inputProps={UserInputProps} onSubmit={onSubmit} isDisabled={isDisabled}/>
     </div>
   {/key}
 </div>

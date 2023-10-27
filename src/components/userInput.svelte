@@ -13,6 +13,7 @@
 
   export let inputProps: InputProps;
   export let onSubmit: (input: string, metric: string) => void;
+  export let isDisabled: boolean;
 
   let input: string = ''
   let metric: string = 'ms'
@@ -29,8 +30,8 @@
         <option value="yr">Years</option>
       </select>
     {/if}
-    <input bind:value={input} autofocus required type="text" class="peer input variant-ghost w-full p-5" placeholder="{inputProps.placeholder}">
-    <button disabled={input === ''} class="btn variant-filled-secondary">
+    <input disabled={isDisabled} bind:value={input} autofocus required type="text" class="peer input variant-ghost w-full p-5" placeholder="{inputProps.placeholder}">
+    <button disabled={input === '' || isDisabled} class="btn variant-filled-secondary">
       <Icon icon="{inputProps.icon}" />
     </button>
   </form>
