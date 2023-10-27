@@ -14,6 +14,6 @@
 
 <!-- App Shell -->
 <AppShell>
-  <LightSwitch class="absolute m-5" />
+  <LightSwitch class="z-50 absolute m-5" />
 	<slot />
 </AppShell>
