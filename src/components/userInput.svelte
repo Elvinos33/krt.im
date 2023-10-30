@@ -30,7 +30,9 @@
         {/each}
       </select>
     {/if}
-    <div class="w-fit input variant-ghost p-5 pr-0">{inputProps.divArg}</div>
+    {#if inputProps.divArg}
+      <div class="w-fit input variant-ghost p-5 pr-0">{inputProps.divArg}</div>
+    {/if}
     <input disabled={isDisabled} bind:value={input} autofocus required type="text" class="peer input variant-ghost w-full p-5" placeholder="{inputProps.placeholder}">
     <button disabled={input === '' || isDisabled} class="btn variant-filled-secondary">
       <Icon icon="{inputProps.icon}" />

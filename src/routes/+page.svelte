@@ -24,7 +24,8 @@
       placeholder: "Please enter a URL...",
       icon: "mdi:arrow-right",
       selection: ["https://", "http://"],
-      selectDefault: "https://"
+      selectDefault: "https://",
+      divArg: '',
     },
     {
       title: "What is the shortened name?",
@@ -32,7 +33,8 @@
       placeholder: "Path...",
       icon: "mdi:arrow-right",
       selection: [],
-      selectDefault: ''
+      selectDefault: '',
+      divArg: 'krt.im/'
     },
     {
       title: "How long would you like the link to last?",
@@ -40,7 +42,8 @@
       placeholder: "Time...",
       icon: "icons8:finish-flag",
       selection: ["Seconds, Minutes, Hours, Days, Years"],
-      selectDefault: "Days"
+      selectDefault: "Days",
+      divArg: ''
     },
   ]
 
