@@ -87,24 +87,23 @@
         if (isNaN(requestData.timer)) {
           toastError("Invalid number! Please try again.")
           } else {
-            if (requestData.timer > 1000) {
-              toastError("You can only store up to 1000 years. Please try again.")
-            } else {
-              isDisabled = true
-              console.log(metric)
-              if (metric === 's') {
-                requestData.timer = requestData.timer * 1000
-              } else if (metric === 'h') {
-                requestData.timer = requestData.timer * 3600000
-              } else if (metric === 'd') {
-                requestData.timer = requestData.timer * 86400000
-              } else if (metric === 'yr') {
-                requestData.timer = requestData.timer * 31536000000
-                }
-              await sendRequest(requestData)
-              currentStage++
+            isDisabled = true
+            console.log(metric)
+            if (metric === 's') {
+              requestData.timer = requestData.timer * 1000
+            } else if (metric === 'h') {
+              requestData.timer = requestData.timer * 3600000
+            } else if (metric === 'd') {
+              requestData.timer = requestData.timer * 86400000
+            } else if (metric === 'yr') {
+              if (requestData.timer > 1000) {
+                toastError("You can only store a link up to 1000 years. Please try again.")
+              }
+              requestData.timer = requestData.timer * 31536000000
+              }
+            await sendRequest(requestData)
+            currentStage++
             }
-          }
         isDisabled = false
       }
   }
