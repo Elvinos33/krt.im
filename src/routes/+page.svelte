@@ -53,6 +53,7 @@
   function toastError(message: string) {
     const toast: ToastSettings = {
       message: message,
+      hideDismiss: true,
       background: 'variant-filled-error'
     }
     toastStore.trigger(toast)
