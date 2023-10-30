@@ -41,7 +41,7 @@
       type: "url",
       placeholder: "Time...",
       icon: "icons8:finish-flag",
-      selection: ["Seconds, Minutes, Hours, Days, Years"],
+      selection: ["Seconds", "Minutes", "Hours", "Days2", "Years"],
       selectDefault: "Days",
       divArg: ''
     },
