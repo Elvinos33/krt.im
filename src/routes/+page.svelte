@@ -66,12 +66,12 @@
   } 
 
 
- async function onSubmit(input: string, metric: string) {
+ async function onSubmit(input: string, selectArg: string) {
     if (currentStage === 0) {
       
       if (isValidURL(input)) {
         if (!input.includes("https://")) {
-          input = `https://${input}`
+          input = selectArg + input
         }
         currentStage++
         requestData.url = input
@@ -95,25 +95,24 @@
           toastError("Invalid number! Please try again.")
           } else {
             isDisabled = true
-            console.log(metric)
             
             // Probably the worst code i've ever written
-            if (metric === 'Seconds') {
+            if (selectArg === 'Seconds') {
               requestData.timer = requestData.timer * 1000
               await sendRequest(requestData)
               currentStage++
-            } else if (metric === 'Minutes') {
+            } else if (selectArg === 'Minutes') {
               requestData.timer = requestData.timer * 60000
               await sendRequest(requestData)
               currentStage++
-            } else if (metric === 'Hours') {
+            } else if (selectArg === 'Hours') {
               requestData.timer = requestData.timer * 3600000
               await sendRequest(requestData)
               currentStage++
-            } else if (metric === 'Days') {
+            } else if (selectArg === 'Days') {
               requestData.timer = requestData.timer * 86400000
               await sendRequest(requestData)
-            } else if (metric === 'Year') {
+            } else if (selectArg === 'Year') {
               if (requestData.timer > 1000) {
                 toastError("You can only store a link up to 1000 years. Please try again.")
               } else {
