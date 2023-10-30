@@ -35,7 +35,7 @@
     {
       title: "How long would you like the link to last?",
       type: "url",
-      placeholder: "krt.im/...",
+      placeholder: "Time...",
       icon: "icons8:finish-flag",
       isNumber: true,
     },
