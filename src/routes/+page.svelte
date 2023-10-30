@@ -23,21 +23,24 @@
       type: "url",
       placeholder: "Please enter a URL...",
       icon: "mdi:arrow-right",
-      isNumber: false
+      selection: ["https://", "http://"],
+      selectDefault: "https://"
     },
     {
       title: "What is the shortened name?",
       type: "url",
       placeholder: "Path...",
       icon: "mdi:arrow-right",
-      isNumber: false
+      selection: [],
+      selectDefault: ''
     },
     {
       title: "How long would you like the link to last?",
       type: "url",
       placeholder: "Time...",
       icon: "icons8:finish-flag",
-      isNumber: true,
+      selection: ["Seconds, Minutes, Hours, Days, Years"],
+      selectDefault: "Days"
     },
   ]
 
@@ -92,19 +95,22 @@
             console.log(metric)
             
             // Probably the worst code i've ever written
-            if (metric === 's') {
+            if (metric === 'Seconds') {
               requestData.timer = requestData.timer * 1000
               await sendRequest(requestData)
               currentStage++
-            } else if (metric === 'h') {
+            } else if (metric === 'Minutes') {
+              requestData.timer = requestData.timer * 60000
+              await sendRequest(requestData)
+              currentStage++
+            } else if (metric === 'Hours') {
               requestData.timer = requestData.timer * 3600000
               await sendRequest(requestData)
               currentStage++
-            } else if (metric === 'd') {
+            } else if (metric === 'Days') {
               requestData.timer = requestData.timer * 86400000
               await sendRequest(requestData)
-              currentStage++
-            } else if (metric === 'yr') {
+            } else if (metric === 'Year') {
               if (requestData.timer > 1000) {
                 toastError("You can only store a link up to 1000 years. Please try again.")
               } else {
