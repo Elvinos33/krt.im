@@ -90,21 +90,29 @@
           } else {
             isDisabled = true
             console.log(metric)
+            
+            // Probably the worst code i've ever written
             if (metric === 's') {
               requestData.timer = requestData.timer * 1000
+              await sendRequest(requestData)
+              currentStage++
             } else if (metric === 'h') {
               requestData.timer = requestData.timer * 3600000
+              await sendRequest(requestData)
+              currentStage++
             } else if (metric === 'd') {
               requestData.timer = requestData.timer * 86400000
+              await sendRequest(requestData)
+              currentStage++
             } else if (metric === 'yr') {
               if (requestData.timer > 1000) {
                 toastError("You can only store a link up to 1000 years. Please try again.")
               } else {
                   requestData.timer = requestData.timer * 31536000000
+                  await sendRequest(requestData)
+                  currentStage++
                 }
               }
-            await sendRequest(requestData)
-            currentStage++
             }
         isDisabled = false
       }
