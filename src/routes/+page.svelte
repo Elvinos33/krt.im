@@ -77,10 +77,10 @@
       if (await doesPathExist(input)) {
         toastError("This path is already exists. Please try another path.")
         } else {
-        isDisabled = false
         currentStage++
         requestData.path = input
       }
+      isDisabled = false;
 
     } else if (currentStage === 2) {
           requestData.timer = Number(input)
@@ -102,11 +102,10 @@
                 requestData.timer = requestData.timer * 31536000000
                 }
               await sendRequest(requestData)
-              isDisabled = false
               currentStage++
-
             }
           }
+        isDisabled = false
       }
   }
 
