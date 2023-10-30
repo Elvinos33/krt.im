@@ -112,7 +112,8 @@
             } else if (selectArg === 'Days') {
               requestData.timer = requestData.timer * 86400000
               await sendRequest(requestData)
-            } else if (selectArg === 'Year') {
+              currentStage++
+            } else if (selectArg === 'Years') {
               if (requestData.timer > 1000) {
                 toastError("You can only store a link up to 1000 years. Please try again.")
               } else {
