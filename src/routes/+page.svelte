@@ -112,8 +112,11 @@
                   await sendRequest(requestData)
                   currentStage++
                 }
-              }
-            }
+            } else {
+              await sendRequest(requestData)
+              currentStage++
+            } 
+          }
         isDisabled = false
       }
   }
