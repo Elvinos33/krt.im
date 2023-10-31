@@ -68,7 +68,7 @@
 
  async function onSubmit(input: string, selectArg: string) {
     if (currentStage === 0) {
-      
+      isDisabled = true
       if (isValidURL(input)) {
         if (!input.includes("https://")) {
           input = selectArg + input
@@ -78,6 +78,7 @@
       } else {
         toastError("Invalid URL! Please try again.")
       }
+      isDisabled = false
 
     } else if (currentStage === 1) {
       isDisabled = true
