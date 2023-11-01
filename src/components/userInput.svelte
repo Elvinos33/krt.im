@@ -33,7 +33,7 @@
     {#if inputProps.divArg}
       <div class="flex justify-center items-center w-fit input variant-ghost p-4">{inputProps.divArg}</div>
     {/if}
-    <input disabled={isDisabled} bind:value={input} autofocus required type="text" class="peer input variant-ghost w-full p-5 pl-1" placeholder="{inputProps.placeholder}">
+    <input disabled={isDisabled} bind:value={input} autofocus required type="text" class="peer input variant-ghost w-full p-5 pl-2" placeholder="{inputProps.placeholder}">
     <button disabled={input === '' || isDisabled} class="btn variant-filled-secondary">
       <Icon icon="{inputProps.icon}" />
     </button>
