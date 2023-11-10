@@ -2,7 +2,6 @@ import { error } from "@sveltejs/kit";
 import prisma from "$lib/prisma";
 
 export async function load({ params }) {
-  console.log(params.slug)
   const link = await prisma.link.findFirst({
     where: {
       path: params.slug
